@@ -4,6 +4,7 @@ import net.minecraft.block.BlockRenderType
 import net.minecraft.block.Blocks
 import net.minecraft.block.BlockState
 import net.minecraft.block.StairsBlock
+import net.minecraft.block.enums.BlockHalf
 import net.minecraft.block.PowderSnowBlock
 import net.minecraft.entity.Entity
 import net.minecraft.entity.Flutterer
@@ -13,7 +14,6 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.particle.BlockStateParticleEffect
 import net.minecraft.particle.ParticleTypes
 import net.minecraft.server.network.ServerPlayerEntity
-import net.minecraft.state.BlockState
 import net.minecraft.state.property.Properties
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
@@ -335,8 +335,8 @@ object ReSquakePlayer {
       
       if (blockBelow.block is StairsBlock) {
           val facing = blockBelow.get(Properties.HORIZONTAL_FACING)
-          val half = blockBelow.get(Properties.HALF)
-          if (half == StairsBlock.Half.TOP) return
+          val half = blockBelow.get(StairsBlock.HALF)
+          if (half == BlockHalf.TOP) return
           
           // Calculate the normal of the stair
           val stairNormal = when (facing) {
