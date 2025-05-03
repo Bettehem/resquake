@@ -446,7 +446,7 @@ object ReSquakePlayer {
         val yVel = 1.5
 
         val effect = BlockStateParticleEffect(ParticleTypes.BLOCK, blockState)
-        this.world.addParticle(effect, x, y, z, xVel, yVel, zVel)
+        this.world.addParticleClient(effect, x, y, z, xVel, yVel, zVel)
       }
     }
   }

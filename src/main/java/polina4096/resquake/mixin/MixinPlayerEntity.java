@@ -37,15 +37,15 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 
   public boolean velocityChanged = false;
 
-  @Inject(at = @At("HEAD"), method = "handleFallDamage")
-  private void beforeFall(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
+  @Inject(method = "handleFallDamage", at = @At("HEAD"), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;handleFallDamage(DFLnet/minecraft/entity/damage/DamageSource;)V"), to = @At("HEAD")))
+  private void beforeFall(double fallDistance, float damagePerDistance, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
     // Store velocity changed state before fall damage is applied
     if (!this.getWorld().isClient)
       velocityChanged = this.velocityModified;
   }
 
-  @Inject(method = "handleFallDamage", at = @At("RETURN"), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;increaseStat(Lnet/minecraft/util/Identifier;I)V"), to = @At("TAIL")))
-  private void afterFall(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
+  @Inject(method = "handleFallDamage", at = @At("RETURN"), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;handleFallDamage(DFLnet/minecraft/entity/damage/DamageSource;)V"), to = @At("TAIL")))
+  private void afterFall(double fallDistance, float damagePerDistance, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
     // Cancel fall damage velocity by restoring state to original one before fall damage was applied if the player is bunnyhopping
     if (!this.getWorld().isClient)
       this.velocityModified = velocityChanged;
