@@ -340,10 +340,10 @@ object ReSquakePlayer {
           
           // Calculate the normal of the stair
           val stairNormal = when (facing) {
-              Direction.NORTH -> Vec3d(0.0, 1.0, -1.0)
-              Direction.SOUTH -> Vec3d(0.0, 1.0, 1.0)
-              Direction.WEST  -> Vec3d(-1.0, 1.0, 0.0)
-              Direction.EAST  -> Vec3d(1.0, 1.0, 0.0)
+              Direction.NORTH -> Vec3d(0.0, -0.52, 0.03)
+              Direction.SOUTH -> Vec3d(0.0, -0.52, -0.03)
+              Direction.WEST  -> Vec3d(0.03, -0.52, 0.0)
+              Direction.EAST  -> Vec3d(-0.03, -0.52, 0.0)
               else -> Vec3d(0.0, 1.0, 0.0)
           }.normalize()
           
@@ -352,7 +352,7 @@ object ReSquakePlayer {
           if (dot > 0) return
           
           // Subtract the normal from the player's velocity to simulate sliding on the surface
-          val newVelocity = this.velocity.subtract(stairNormal.multiply(dot * 1.5)) // Adjust the multiplier for surf behavior
+          val newVelocity = this.velocity.subtract(stairNormal.multiply(dot * 1.0054)) // Adjust the multiplier for surf behavior
           this.velocity = newVelocity
       }
   }
