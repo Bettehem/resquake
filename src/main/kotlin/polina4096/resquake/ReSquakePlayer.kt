@@ -227,7 +227,7 @@ object ReSquakePlayer {
     else {
         val airAcceleration = ReSquakeMod.config.airAcceleration
         this.airAccelerate(wishspeed, wishdir.first, wishdir.second, airAcceleration)
-        if (blockBelow.block is StairsBlock) {
+        if (blockBelow.block is StairsBlock && !this.isSneaking) {
             this.surfOnStairs(this.world)
         }
         // Movement on top of water
