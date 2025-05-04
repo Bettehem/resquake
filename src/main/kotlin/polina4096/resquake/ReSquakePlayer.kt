@@ -225,7 +225,7 @@ object ReSquakePlayer {
 
     // Air movement
     else {
-        val airAcceleration = ReSquakeMod.config.airAcceleration
+        val airAcceleration = if (blockBelow.block is StairsBlock) ReSquakeMod.config.airAcceleration * 1.5 else ReSquakeMod.config.airAcceleration
         this.airAccelerate(wishspeed, wishdir.first, wishdir.second, airAcceleration)
         if (blockBelow.block is StairsBlock && !this.isSneaking) {
             this.surfOnStairs(this.world)
