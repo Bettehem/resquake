@@ -225,17 +225,16 @@ object ReSquakePlayer {
 
     // Air movement
     else {
-      val airAcceleration = ReSquakeMod.config.airAcceleration
-      this.airAccelerate(wishspeed, wishdir.first, wishdir.second, airAcceleration)
-
-    if (blockBelow.block is StairsBlock) {
-      this.surfOnStairs(this.world)
-    }
-      // Movement on top of water
-      if (ReSquakeMod.config.sharkingEnabled && ReSquakeMod.config.sharkingSurfaceTension > 0.0 && jumping && this.velocity.y < 0.0) {
-        val isFallingIntoWater = this.world.containsFluid(this.boundingBox.offset(this.velocity))
-        if (isFallingIntoWater) this.velocity = Vec3d(this.velocity.x, this.velocity.y * ReSquakeMod.config.sharkingSurfaceTension, this.velocity.z)
-      }
+        val airAcceleration = ReSquakeMod.config.airAcceleration
+        this.airAccelerate(wishspeed, wishdir.first, wishdir.second, airAcceleration)
+        if (blockBelow.block is StairsBlock) {
+            this.surfOnStairs(this.world)
+        }
+        // Movement on top of water
+        if (ReSquakeMod.config.sharkingEnabled && ReSquakeMod.config.sharkingSurfaceTension > 0.0 && jumping && this.velocity.y < 0.0) {
+            val isFallingIntoWater = this.world.containsFluid(this.boundingBox.offset(this.velocity))
+            if (isFallingIntoWater) this.velocity = Vec3d(this.velocity.x, this.velocity.y * ReSquakeMod.config.sharkingSurfaceTension, this.velocity.z)
+        }
     }
 
     // Apply velocity
